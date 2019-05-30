@@ -1,22 +1,13 @@
-# DOCKER-VERSION 1.1.2
-# VERSION        0.1
-
-FROM debian:wheezy
-MAINTAINER Justin Plock <justin@plock.net>
+FROM debian:stretch
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y -q wget debhelper automake \
         libapr1-dev libpcre3-dev  libssl-dev libdbi-dev libcap-dev \
-        libexpat1-dev libtool libperl-dev autotools-dev xmlto dblatex
+        libexpat1-dev libtool libperl-dev autotools-dev xmlto dblatex && apt-get clean
 
-RUN wget -q -O - http://softlayer-dal.dl.sourceforge.net/project/nxlog-ce/nxlog-ce-2.8.1248.tar.gz | tar -xzf - -C /opt
-WORKDIR /opt/nxlog-ce-2.8.1248/packaging/debian
-RUN sh make_debs.sh
-RUN dpkg -i /opt/nxlog-ce_2.8.1248_amd64.deb
-RUN apt-get purge -y -q xmlto dblatex
-RUN apt-get autoremove -y -q
-
-EXPOSE 514/tcp 514/udp
+WORKDIR /opt/nxlog
+RUN wget -q -O - https://nxlog.co/system/files/products/files/348/nxlog-ce_2.10.2150_debian_stretch_amd64.deb 
+RUN dpkg -i nxlog-ce_2.10.2150_debian_stretch_amd64.deb && apt-get purge -y -q xmlto dblatex && apt-get autoremove -y -q
 
 ENTRYPOINT ["/usr/bin/nxlog"]
 CMD ["-f"]
