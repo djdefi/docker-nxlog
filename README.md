@@ -1,7 +1,7 @@
 docker-nxlog
 ============
-Builds a docker images for nxlog.
+Builds a docker image for nxlog.
 
 ```
-docker build -t <user>/nxlog:2.8.1248
+docker build -t <user>/nxlog:latest
 ```
