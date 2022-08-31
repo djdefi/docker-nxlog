@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y -q \
         libdbi1 \
         libexpat1 \
         libperl5.24 \
+        libpython3.5 \
         libssl1.0.2 && apt-get clean
 
 WORKDIR /opt/nxlog
